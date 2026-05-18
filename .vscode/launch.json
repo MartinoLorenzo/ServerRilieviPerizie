@@ -1,0 +1,52 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "name": "nodemon",
+            "program": "${workspaceFolder}/server.ts",
+            "request": "launch",
+            "restart": true,
+            "runtimeExecutable": "nodemon",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "TSX Watch",
+            "runtimeExecutable": "npx", // usa npx
+            "runtimeArgs": [
+                "tsx",
+                "watch",
+                "server.ts"
+            ], // comando completo
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "restart": true,
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "name": "ts-node",
+            "program": "${workspaceFolder}/server.ts",
+            "request": "launch",
+            "restart": true,
+            "runtimeExecutable": "ts-node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        }
+    ]
+}

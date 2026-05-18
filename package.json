@@ -1,0 +1,44 @@
+{
+    "name": "nodejs",
+    "version": "1.0.0",
+    "description": "Esercizi basati su nodejs e Express",
+    "keywords": [
+        "nodejs",
+        "Express",
+        "dispatching"
+    ],
+    "license": "ISC",
+    "author": "Lorenzo",
+    "type": "commonjs",
+    "main": "server.js",
+    "scripts": {
+      "dev": "tsx watch server.ts",
+      "start": "npx tsx server.ts"
+  },
+    "dependencies": {
+        "bcryptjs": "^3.0.3",
+        "cloudinary": "^2.10.0",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "express": "^5.1.0",
+        "express-fileupload": "^1.5.2",
+        "jsonwebtoken": "^9.0.3",
+        "mongodb": "^6.20.0",
+        "nodemailer": "^8.0.5",
+        "nodemon": "^3.1.10",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.20.5",
+        "typescript": "^5.9.2"
+    },
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.6",
+        "@types/cookie-parser": "^1.4.10",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.3",
+        "@types/express-fileupload": "^1.5.1",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@types/node": "^24.5.2",
+        "@types/nodemailer": "^8.0.0"
+    }
+}

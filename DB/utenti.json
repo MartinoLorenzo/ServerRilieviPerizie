@@ -1,0 +1,37 @@
+[
+  {
+    "username": "admin@gmail.com",
+    "password": "admin",
+    "info": {
+      "nome": "Admin"
+    },
+    "role": "admin"
+  },
+  {
+    "username": "mario.rossi@gmail.com",
+    "password": "$2b$10$7vGzB0Rz8J...", 
+    "info": {
+      "nome": "Mario",
+      "cognome": "Rossi"
+    },
+    "role": "user"
+  },
+  {
+    "username": "luca.bianchi@gmail.com",
+    "password": "$2b$10$X8kL2m9n3p...",
+    "info": {
+      "nome": "Luca",
+      "cognome": "Bianchi"
+    },
+    "role": "user"
+  },
+  {
+    "username": "giulia.verdi@gmail.com",
+    "password": null,
+    "info": {
+      "nome": "Giulia",
+      "cognome": "Verdi"
+    },
+    "role": "user"
+  }
+]

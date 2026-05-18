@@ -1,0 +1,94 @@
+[
+    {
+        "_id": "664320a1f1a2b3c4d5e6f001",
+        "codice": "PRZ-2026-001",
+        "descrizione": "Valutazione danni da infiltrazione idrica nel seminterrato.",
+        "operatore": "mario.rossi@perizieitaly.it",
+        "data_ora": "2026-05-10T10:15:00Z",
+        "coordinate": {
+            "lat": 45.0677,
+            "lng": 7.6824
+        },
+        "fotografie": [
+            {
+                "url": "https://images.unsplash.com/photo-1584622781564-1d9876a13d00",
+                "public_id": "inf_001_A",
+                "commento": "Macchia di umidità parete nord-est."
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1595841696677-6489ff3f8cd1",
+                "public_id": "inf_001_B",
+                "commento": "Dettaglio tubazione flessibile deteriorata."
+            }
+        ]
+    },
+    {
+        "_id": "664320a1f1a2b3c4d5e6f002",
+        "codice": "PRZ-2026-002",
+        "descrizione": "Sopralluogo per certificazione impianti post-ristrutturazione.",
+        "operatore": "elena.bianchi@tecnicicampus.it",
+        "data_ora": "2026-05-12T14:30:00Z",
+        "coordinate": {
+            "lat": 41.9028,
+            "lng": 12.4964
+        },
+        "fotografie": [
+            {
+                "url": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e",
+                "public_id": "cert_002_A",
+                "commento": "Quadro elettrico conforme a norma CEI 64-8."
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1581092160562-40aa08e78837",
+                "public_id": "cert_002_B",
+                "commento": "Messa a terra verificata con multimetro."
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1504148454958-69a6a1773967",
+                "public_id": "cert_002_C",
+                "commento": "Cablaggi strutturati nel locale server."
+            }
+        ]
+    },
+    {
+        "_id": "664320a1f1a2b3c4d5e6f003",
+        "codice": "PRZ-2026-003",
+        "descrizione": "Verifica stabilità strutturale dopo evento sismico lieve.",
+        "operatore": "stefano.neri@ingegneria.com",
+        "data_ora": "2026-05-13T09:00:00Z",
+        "coordinate": {
+            "lat": 44.4949,
+            "lng": 11.3426
+        },
+        "fotografie": [
+            {
+                "url": "https://images.unsplash.com/photo-1590060828578-d25432a4048c",
+                "public_id": "sisma_003_A",
+                "commento": "Crepa superficiale intonaco esterno, non strutturale."
+            }
+        ]
+    },
+    {
+        "_id": "664320a1f1a2b3c4d5e6f004",
+        "codice": "PRZ-2026-004",
+        "descrizione": "Perizia assicurativa incendio cucina ristorante.",
+        "operatore": "mario.rossi@perizieitaly.it",
+        "data_ora": "2026-05-14T08:45:00Z",
+        "coordinate": {
+            "lat": 45.4642,
+            "lng": 9.1900
+        },
+        "fotografie": [
+            {
+                "url": "https://images.unsplash.com/photo-1580913209249-41d715186c41",
+                "public_id": "fire_004_A",
+                "commento": "Punto d'innesco identificato dietro cappa aspirante."
+            },
+            {
+                "url": "https://images.unsplash.com/photo-1597113366853-9a93ad3f39d8",
+                "public_id": "fire_004_B",
+                "commento": "Danni da calore e fumo su soffitto e arredi."
+            }
+        ]
+    }
+]
