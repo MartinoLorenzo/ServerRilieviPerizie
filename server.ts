@@ -11,6 +11,7 @@ import cookieParser from "cookie-parser";
 import nodemailer from "nodemailer";
 import fileManager from "./filemanager";
 import fileupload from "express-fileupload";
+import { google } from 'googleapis';
 
 // i parametri GET sono restituiti dentro req.query
 // i parametri POST sono restituiti dentro req.body
@@ -23,6 +24,15 @@ dotenv.config({
 });
 const connectionString = process.env.connectionStringAtlas;
 const dbName = process.env.dbName;
+const oauth2Client = new google.auth.OAuth2(
+    process.env.GMAIL_CLIENT_ID,
+    process.env.GMAIL_CLIENT_SECRET,
+    'https://developers.google.com/oauthplayground'
+);
+
+oauth2Client.setCredentials({
+    refresh_token: process.env.GMAIL_REFRESH_TOKEN!
+});
 
 // Creazione ed avvio sel server https
 const jwtKey = process.env.JWT_SECRET_KEY || "123456789";
@@ -201,17 +211,14 @@ app.post("/api/login-google", async (req, res) => {
 app.use("/api/", function (req: any, res, next) {
     let TOKEN = null;
 
-    // 1. Prova a prenderlo dai Cookie (Parte Web)
     if (req.cookies && req.cookies.TOKEN) {
         TOKEN = req.cookies.TOKEN;
     }
-    // 2. Se non c'è nei cookie, prova a prenderlo dall'Header Authorization 
     else if (req.headers['authorization']) {
         const authHeader = req.headers['authorization'];
         TOKEN = authHeader && authHeader.split(' ')[1];
     }
 
-    // 3. Se non è in nessuno dei due, blocca la richiesta
     if (!TOKEN) {
         res.status(403).send("Token mancante");
     } else {
@@ -661,32 +668,42 @@ function createToken(data: any) {
     return token;
 }
 
-function sendGmail(email: string, password: string) {
+async function sendGmail(email: string, passwordInChiaro: string): Promise<void> {
+    try {
+        const username = email.trim();
+        let message = fs.readFileSync("./message.html", "utf8");
+        message = message.replace("__user", username);
+        message = message.replace("__password", passwordInChiaro);
 
-    let message = fs.readFileSync("./message.html", "utf-8");
-    message = message.replace("__user", email);
-    message = message.replace("__password", password);
+        const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_APP_PASSWORD
-        }
-    });
+        // Costruzione del messaggio in formato MIME standard
+        const rawMessage = [
+            `From: ${process.env.GMAIL_USER}`,
+            `To: ${username}`,
+            `Subject: Nuovo account Rilievi e Perizie`,
+            `MIME-Version: 1.0`,
+            `Content-Type: text/html; charset=utf-8`,
+            ``,
+            message
+        ].join('\n');
 
-    const mailOptions = {
-        from: process.env.GMAIL_USER,
-        to: email,
-        subject: "Nuovo account Rilievi e Perizie",
-        html: message
-    };
+        // Codifica in Base64 URL-Safe richiesta dalle API di Google
+        const encodedMessage = Buffer.from(rawMessage)
+            .toString('base64')
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=+$/, '');
 
-    transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.log("EMAIL ERROR:", err);
-        } else {
-            console.log("EMAIL SENT:", info.response);
-        }
-    });
+        const res = await gmail.users.messages.send({
+            userId: 'me',
+            requestBody: { raw: encodedMessage }
+        });
+
+        console.log('EMAIL SENT (Gmail API):', res.data.id);
+    } catch (err) {
+        console.error("EMAIL ERROR (Gmail API):", err);
+        // Lanciamo l'errore se vogliamo che il blocco catch della rotta lo intercetti
+        throw err;
+    }
 }

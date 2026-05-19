@@ -12,9 +12,9 @@
     "type": "commonjs",
     "main": "server.js",
     "scripts": {
-      "dev": "tsx watch server.ts",
-      "start": "npx tsx server.ts"
-  },
+        "dev": "tsx watch server.ts",
+        "start": "npx tsx server.ts"
+    },
     "dependencies": {
         "bcryptjs": "^3.0.3",
         "cloudinary": "^2.10.0",
@@ -23,6 +23,7 @@
         "dotenv": "^17.2.3",
         "express": "^5.1.0",
         "express-fileupload": "^1.5.2",
+        "googleapis": "^171.4.0",
         "jsonwebtoken": "^9.0.3",
         "mongodb": "^6.20.0",
         "nodemailer": "^8.0.5",
