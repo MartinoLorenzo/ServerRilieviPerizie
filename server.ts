@@ -23,7 +23,6 @@ dotenv.config({
 });
 const connectionString = process.env.connectionStringAtlas;
 const dbName = process.env.dbName;
-const googleOAuth = JSON.parse(process.env.googleOAuth || "{}");
 
 // Creazione ed avvio sel server https
 const jwtKey = process.env.JWT_SECRET_KEY || "123456789";
@@ -663,23 +662,31 @@ function createToken(data: any) {
 }
 
 function sendGmail(email: string, password: string) {
+
     let message = fs.readFileSync("./message.html", "utf-8");
     message = message.replace("__user", email);
     message = message.replace("__password", password);
-    const transporter = nodemailer.createTransport({ "service": "gmail", "auth": googleOAuth });
-    const mailOptions = {
-        "from": googleOAuth.User,
-        "to": email,
-        "subject": "Nuovo account Rilievi e Perizie",
-        "html": message
-    }
-    transporter.sendMail(mailOptions, function (err, info) {
-        if (err) {
-            console.log(err.stack)
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_APP_PASSWORD
         }
-        else {
-            console.log(info);
-            transporter.close();
+    });
+
+    const mailOptions = {
+        from: process.env.GMAIL_USER,
+        to: email,
+        subject: "Nuovo account Rilievi e Perizie",
+        html: message
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.log("EMAIL ERROR:", err);
+        } else {
+            console.log("EMAIL SENT:", info.response);
         }
     });
 }
