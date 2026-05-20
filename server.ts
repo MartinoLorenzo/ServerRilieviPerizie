@@ -469,11 +469,10 @@ app.post("/api/save-perizie", async function (req: any, res, next) {
 });
 
 app.delete("/api/delete-perizia", async function (req: any, res, next) {
-    const perizia = req.body?.perizia;
-    const codicePerizia = perizia?.codice;
+    const codicePerizia = req.query?.codice;
 
     if (!codicePerizia) {
-        return res.status(400).json({ message: "Dati o codice della perizia mancanti nel body." });
+        return res.status(400).json({ message: "Codice della perizia mancante nella richiesta." });
     }
 
     const client = new MongoClient(connectionString!);
@@ -485,10 +484,9 @@ app.delete("/api/delete-perizia", async function (req: any, res, next) {
         const collection = db.collection(currentCollection);
 
         const query = { "codice": codicePerizia };
-
         const result = await collection.deleteOne(query);
 
-        if (result.deletedCount == 0) {
+        if (result.deletedCount === 0) {
             res.status(404).json({ message: "Nessuna perizia trovata con il codice fornito." });
         } else {
             res.status(200).json({ message: "Perizia eliminata con successo." });
