@@ -468,6 +468,39 @@ app.post("/api/save-perizie", async function (req: any, res, next) {
     }
 });
 
+app.delete("/api/delete-perizia", async function (req: any, res, next) {
+    const perizia = req.body?.perizia;
+    const codicePerizia = perizia?.codice;
+
+    if (!codicePerizia) {
+        return res.status(400).json({ message: "Dati o codice della perizia mancanti nel body." });
+    }
+
+    const client = new MongoClient(connectionString!);
+    const currentCollection = "perizie";
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const collection = db.collection(currentCollection);
+
+        const query = { "codice": codicePerizia };
+
+        const result = await collection.deleteOne(query);
+
+        if (result.deletedCount == 0) {
+            res.status(404).json({ message: "Nessuna perizia trovata con il codice fornito." });
+        } else {
+            res.status(200).json({ message: "Perizia eliminata con successo." });
+        }
+    } catch (err: any) {
+        console.error("ERRORE ELIMINAZIONE PERIZIA:", err);
+        res.status(500).json({ message: "Errore interno del server: " + err.message });
+    } finally {
+        await client.close();
+    }
+});
+
 // UTENTI
 app.get("/api/utenti", async function (req: any, res, next) {
     let searchParam = req["parsedQuery"]?.search;
